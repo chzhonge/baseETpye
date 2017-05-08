@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <style>
+        #center_Main
+        {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width:360px;
+            height:640px;
+            border:5px solid #d3d3d3;
+        //background-color: #001a00;
+            border-radius: 25px;
+            z-index:999;
+        }
+        #center_Main a
+        {
+            width:100px;
+            font-size:20px;
+            text-decoration:none;
+        }
+        .left_Main
+        {
+            position: absolute;
+            width: 160px;
+            height: 600px;
+            left: 32px;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+
+        }
+        .block_L
+        {
+            position: absolute;
+            font-size:50px;
+            float:left;
+            -webkit-animation-name: example; /* Chrome, Safari, Opera */
+            -webkit-animation-duration: 10s; /* Chrome, Safari, Opera */
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-iteration-count:infinite;
+            z-index:-1;
+        }
+        .block2_L
+        {
+            position: absolute;
+            font-size:80px;
+            float:left;
+            left:50px;
+            -webkit-animation-name: example2; /* Chrome, Safari, Opera */
+            -webkit-animation-duration: 8s; /* Chrome, Safari, Opera */
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-iteration-count:infinite;
+            z-index:1;
+        }
+        .block3_L
+        {
+            position: absolute;
+            font-size:60px;
+            float:left;
+            left:300px;
+            -webkit-animation-name: example; /* Chrome, Safari, Opera */
+            -webkit-animation-duration: 12s; /* Chrome, Safari, Opera */
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-iteration-count:infinite;
+            z-index:2;
+        }
+        .block4_L
+        {
+            position: absolute;
+            font-size:50px;
+            float:left;
+            left:80px;
+            -webkit-animation-name: example2; /* Chrome, Safari, Opera */
+            -webkit-animation-duration: 18s; /* Chrome, Safari, Opera */
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-iteration-count:infinite;
+            z-index:2;
+        }
+        .block5_L
+        {
+            position: absolute;
+            font-size:60px;
+            float:left;
+            left:250px;
+            -webkit-animation-name: example; /* Chrome, Safari, Opera */
+            -webkit-animation-duration: 15s; /* Chrome, Safari, Opera */
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-iteration-count:infinite;
+            z-index:2;
+        }
+
+        .block_R
+        {
+            position: absolute;
+            font-size:50px;
+            float:left;
+            -webkit-animation-name: example; /* Chrome, Safari, Opera */
+            -webkit-animation-duration: 7s; /* Chrome, Safari, Opera */
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-iteration-count:infinite;
+            z-index:-1;
+        }
+        .block2_R
+        {
+            position: absolute;
+            font-size:80px;
+            float:left;
+            right:50px;
+            -webkit-animation-name: example2; /* Chrome, Safari, Opera */
+            -webkit-animation-duration: 15s; /* Chrome, Safari, Opera */
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-iteration-count:infinite;
+            z-index:1;
+        }
+        .block3_R
+        {
+            position: absolute;
+            font-size:60px;
+            float:left;
+            right:300px;
+            -webkit-animation-name: example; /* Chrome, Safari, Opera */
+            -webkit-animation-duration: 16s; /* Chrome, Safari, Opera */
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-iteration-count:infinite;
+            z-index:2;
+        }
+        .block4_R
+        {
+            position: absolute;
+            font-size:50px;
+            float:left;
+            right:80px;
+            -webkit-animation-name: example2; /* Chrome, Safari, Opera */
+            -webkit-animation-duration: 9s; /* Chrome, Safari, Opera */
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-iteration-count:infinite;
+            z-index:2;
+        }
+        .block5_R
+        {
+            position: absolute;
+            font-size:60px;
+            float:left;
+            right:250px;
+            -webkit-animation-name: example; /* Chrome, Safari, Opera */
+            -webkit-animation-duration: 13s; /* Chrome, Safari, Opera */
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-iteration-count:infinite;
+            z-index:2;
+        }
+
+        /* Chrome, Safari, Opera */
+        @-webkit-keyframes example
+        {
+            0%   {top:0px;}
+            100% {top:600px;}
+        }
+        @-webkit-keyframes example2
+        {
+            0%   {top:0px;}
+            100% {top:600px;}
+        }
+        .right_Main
+        {
+            position: absolute;
+            width: 160px;
+            height: 600px;
+            right: 32px;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+
+        }
+        #game_View
+        {
+            background-color:#ffffff;
+        //border:1px solid #d3d3d3;
+            z-index:999;
+        }
+        .game_Menu
+        {
+        <!--
+        visibility:hidden;
+        position: absolute;
+        -->
+            position:fixed;
+            top:90%;
+            left:35%;
+        //35%
+        width:100px;
+            height:20px;
+            margin:auto;
+        }
+        .game_Time
+        {
+            position: absolute;
+            top:0%;
+            left:75%;
+            width:100px;
+            height:20px;
+            margin: auto;
+            font-size:40px;
+        }
+        .game_Score
+        {
+            position: absolute;
+            top:15%;
+            left:75%;
+            width:100px;
+            height:20px;
+            margin: auto;
+            font-size:40px;
+        }
+
+    </style>
+    <script>
+        /*
+         *
+         * (1).亂數產生題目
+         * (2).重繪畫布
+         * (3).Timeout設定產生動畫效果
+         * (4).題目下降
+         * (5).題目過頭，換下一題
+         * (6).判斷輸入對錯
+         * (7).分數、時間變動
+         * (8).讀取localStorage
+         * (9).設置主頁面
+         * (10).設置主選單
+         * (11).設置排行榜
+         */
+        var game_View;                //主畫面 div
+        var game_Menu;                //選單 div
+        var game_Content;             //畫面內容 div
+        var game_Time;                //Time div
+        var game_Score;               //Score div
+
+        var game_Quesion=['apple','banana','cat','dog','egg','fat','ghost','hamburger',
+            'invocation','joker','kingdom','longitudinal','elephant','insect','monkey','koala','kangaroo',
+            'rabbit','turtle','zebra','vampire','milk','coffee','papaya','mosquito','giraffe','drangon',
+            'dolphin','ladybug','fly','baseball','rock'
+        ];                             //題庫
+        var game_Now_Quesion=[];      // 亂數題目
+        var game_Now_Down_Question=[];// 目前下降的題目
+        var game_Now_Target;          // 現在目標
+        var game_Now_Target_Count=0;  // 當前題目
+        var game_Now_Q_X=[];          // 題目x軸
+        var game_Now_Q_Y=[];          // 題目y軸
+        var game_Q_Count=0;           // 下一題題目
+        var game_Not_Proc_Time=60000; // 總時間
+        var game_Quesion_Limit=30;    // 出題數
+        var game_Now_Score=0;         // 當前分數
+        var game_Time_res=[];         // 動畫變數
+        var game_Score_local=[{}];    // local JSON
+
+        window.onload=function()
+        {
+            game_View=document.getElementById("game_View");
+            game_View.width='360';
+            // 更改物件本身的尺寸
+            // .style.witdh 透過css來拉長
+            game_View.height='640';
+            game_Content = game_View.getContext("2d");
+            game_Content.font = "60px Arial";
+            game_Content.fillText("baseEType",30,80);
+            game_Time=document.getElementsByClassName("game_Time");
+            game_Score=document.getElementsByClassName("game_Score");
+            game_Menu=document.getElementsByClassName("game_Menu");
+            /*↑(9)*/
+
+            /*↓(8)*/
+            if(localStorage.getItem("local_Rank")!==null)
+            {
+                game_Score_local=JSON.parse(localStorage.getItem("local_Rank"));
+                console.log('yes');
+
+            }
+            else
+            {
+                console.log('no');
+            }
+        };
+        function startGame()
+        {
+            game_Menu[0].style['visibility']='hidden';
+            game_View.width='360';
+            game_View.height='640';
+            window.addEventListener("keydown",game_keydown, true);
+            /*↓(3)*/
+            set_Game_Question();
+            set_Game_Animate();
+            set_Game_Array_Push();
+        };
+        function clearGameContent()/*(2)*/
+        {
+            game_View.width='360';
+            game_View.height='640';
+        };
+        function rand(min,max)/*(1)*/
+        {
+            var resuit = Math.floor((Math.random() * max) + min);
+            return resuit;
+        };
+        function set_Game_Q_Down()
+        {
+
+            for(var s=0;s<game_Now_Down_Question.length;s++)
+            {
+                game_Content.font="20px Arial";
+                game_Content.fillText(game_Now_Down_Question[s],game_Now_Q_X[s],game_Now_Q_Y[s]+=5);
+            }
+            /*↑(4)*/
+
+            /*↓(5)*/
+            if(game_Now_Q_Y[game_Now_Target_Count]>=650&&game_Now_Target.length>0)
+            {
+                game_Now_Target_Count+=1;
+                game_Now_Target=game_Now_Down_Question[game_Now_Target_Count];
+                console.log('650');
+            }
+        };
+        function set_Game_Question()/*(1)*/
+        {
+            var testD=document.getElementById('testD');
+            for(var s=0;s<game_Quesion_Limit;s++)
+            {
+                game_Now_Quesion[s]=game_Quesion[rand(0,game_Quesion.length-1)];
+                game_Now_Q_X[s]=rand(10,170);
+                game_Now_Q_Y[s]=30;
+                for(var f=0;f<s;f++)
+                {
+                    while(game_Now_Quesion[s]==game_Now_Quesion[f])
+                    {
+                        f=0;
+                        game_Now_Quesion[s]=game_Quesion[rand(0,game_Quesion.length-1)];
+                    }
+                }
+            }
+            game_Now_Down_Question[0]=game_Now_Quesion[0];
+            game_Now_Target=game_Now_Down_Question[0];
+        };
+        function set_Game_Animate()/*(3)*/
+        {
+            clearGameContent();
+            game_Time_res[0]=setTimeout(set_Game_Animate,100);
+            game_Time_res[1]=setTimeout(set_Game_Time_Score,100);
+            game_Time_res[2]=setTimeout(set_Game_Q_Down,100);
+        };
+        function set_Game_Array_Push()/*(3)*/
+        {
+            game_Time_res[3]=setTimeout(set_Game_Array_Push,3000);
+            game_Time_res[4]=setTimeout(set_Game_Push_N,3000);
+        };
+        function set_Game_Push_N()/*(3)*/
+        {
+            game_Q_Count+=1;
+            game_Now_Down_Question.push(game_Now_Quesion[game_Q_Count]);
+            console.log(game_Q_Count);
+        };
+        function set_Game_Time_Score()/*(7)*/
+        {
+
+            game_Not_Proc_Time-=100;
+            var show=(game_Not_Proc_Time).toString();
+            if(show.length>=5)
+            {
+                show=show.substr(0,2);
+                game_Time[0].innerHTML="時間&nbsp</br>&nbsp&nbsp"+show;
+                console.log("時間5:"+game_Not_Proc_Time);
+            }
+            else
+            {
+                if(show.length==4)
+                {
+                    show=show.substr(0,1);
+                    game_Time[0].innerHTML="時間&nbsp</br>&nbsp&nbsp&nbsp"+show;
+                    console.log("時間else4:"+game_Not_Proc_Time);
+                }
+                else
+                {
+                    show=show.substr(0,1);
+                    console.log("時間else:"+game_Not_Proc_Time);
+                    if(show=='0')
+                    {
+                        game_Time[0].innerHTML="時間&nbsp</br>&nbsp&nbsp&nbsp"+show;
+                    }
+                }
+            }
+            if(show=="0")
+            {
+                for(var s=0;s<game_Time_res.length;s++)
+                {
+                    clearTimeout(game_Time_res[s]);
+                }
+                var meg=prompt("您的分數為為："+game_Now_Score+"分"+"\n請輸入您的姓名來記錄分數：", "玩家");
+                game_Score_local.push({"User":meg,"Score":game_Now_Score});
+                localStorage.setItem("local_Rank",JSON.stringify(game_Score_local));
+                game_Time[0].innerHTML="";
+            }
+            if(game_Now_Score==0)
+            {
+                game_Score[0].innerHTML="分數&nbsp</br>&nbsp&nbsp&nbsp"+game_Now_Score;
+
+            }
+            else if(game_Now_Score>=100)
+            {
+                game_Score[0].innerHTML="分數&nbsp</br>&nbsp"+game_Now_Score;
+            }
+            else
+            {
+                game_Score[0].innerHTML="分數&nbsp</br>&nbsp&nbsp"+game_Now_Score;
+            }
+            if(show=="0")
+            {
+                game_Score[0].innerHTML="";
+                clearGameContent();
+                game_Content.font = "60px Arial";
+                game_Content.fillText("baseEType",30,80);
+                game_Menu[0].style['visibility']='visible';
+            }
+
+        };
+        function game_keydown(e)/*(6)*/
+        {
+            if(game_Now_Target.substr(0,1)==String.fromCharCode(e.keyCode).toLowerCase())
+            {
+                game_Now_Target=game_Now_Target.substr(1,game_Now_Target.length);
+                game_Now_Down_Question[game_Now_Target_Count]=game_Now_Target;
+                if(game_Now_Down_Question[game_Now_Target_Count]===''||typeof(game_Now_Down_Question[game_Now_Target_Count])==='undefined')
+                {
+                    game_Now_Target_Count+=1;
+                    game_Now_Target=game_Now_Down_Question[game_Now_Target_Count];
+                    game_Now_Score+=10;
+                    console.log('if');
+                }
+            }
+            else if(typeof(game_Now_Target.substr(0,1))==='undefined')
+            {
+                game_Now_Target_Count+=1;
+                game_Now_Target=game_Now_Down_Question[game_Now_Target_Count];
+                game_Now_Score+=10;
+                console.log('elseif');
+            }
+            else
+            {
+                console.log('else');
+            }
+            console.log(game_Now_Target);
+        };
+        function start_Rank()/*(11)*/
+        {
+            clearGameContent();
+            game_Content.font = "60px Microsoft JhengHei";
+            game_Content.fillText("排行榜",90,80);
+            for(var s=1;s<game_Score_local.length;s++)
+            {
+                for(var f=1;f<game_Score_local.length;f++)
+                {
+                    if(game_Score_local[s].Score>game_Score_local[f].Score)
+                    {
+                        var tempUser=game_Score_local[s].User;
+                        var tempScore=game_Score_local[s].Score;
+                        game_Score_local[s].User=game_Score_local[f].User;
+                        game_Score_local[s].Score=game_Score_local[f].Score;
+                        game_Score_local[f].User=tempUser;
+                        game_Score_local[f].Score=tempScore;
+                    }
+                }
+            }
+            var u_X=120;
+            var u_Y=120;
+            var y=120;
+            for(var s=1;s<game_Score_local.length;s++)
+            {
+                game_Content.font = "20px Microsoft JhengHei";
+                game_Content.fillText(game_Score_local[s].User,u_X,u_Y);
+                game_Content.fillText(game_Score_local[s].Score,200,y);
+                u_Y+=30;
+                y+=30;
+            }
+
+            game_Menu[0].innerHTML="<button style='width:100px;' onclick='back_Main()'>返回</button>";
+        };
+
+        function back_Main()/*(10)*/
+        {
+            clearGameContent();
+            game_Menu[0].innerHTML="<button style='width:100px;' onclick='startGame()' >開始遊戲</button>"+
+                "</br><button style='width:100px;' onclick='start_Rank()' >排行榜</button>";
+            game_Content.font = "60px Arial";
+            game_Content.fillText("baseEType",30,80);
+        };
+    </script>
+    <link rel="stylesheet" href="type.css">
+</head>
+<body>
+<div class='left_Main'>
+    <div class='block_L'>
+        apple
+    </div>
+    <div class='block2_L'>
+        banana
+    </div>
+    <div class='block3_L'>
+        cat
+    </div>
+    <div class='block4_L'>
+        elephant
+    </div>
+    <div class='block5_L'>
+        fly
+    </div>
+</div>
+<div class='right_Main'>
+    <div class='block_R'>
+        papaya
+    </div>
+    <div class='block2_R'>
+        kangaroo
+    </div>
+    <div class='block3_R'>
+        kingdom
+    </div>
+    <div class='block4_R'>
+        longitudinal
+    </div>
+    <div class='block5_R'>
+        zebra
+    </div>
+</div>
+<div id='center_Main'>
+    <canvas id="game_View"></canvas>
+    <div class='game_Menu'>
+        <button style='width:100px;' onclick='startGame()' >開始遊戲</button>
+        </br>
+        <button style='width:100px;' onclick='start_Rank()' >排行榜</button>
+    </div>
+    <div>
+        <div class='game_Time'>
+        </div>
+        <div class='game_Score'>
+        </div>
+    </div>
+</div>
+</body>
+</html>
